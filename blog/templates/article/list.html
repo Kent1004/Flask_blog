@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Articles
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <h1>Articles:</h1>
+            {% for article in articles%}
+                <ul>
+                    <li><a href="{{ url_for('article.article_details', article_name = article) }}"> {{ article }}</a></li>
+                </ul>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
