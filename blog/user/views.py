@@ -4,10 +4,11 @@ from werkzeug.exceptions import NotFound
 user = Blueprint('user', __name__, url_prefix='/users',static_folder='../static')
 #USERS  = ['Alice','Jon','Mike']
 USERS = {
-1: 'Alice',
-2:'Jon',
-3: 'Mike',
+    1: {"name": "Ivan"},
+    2: {"name": "Jon"},
+    3: {"name": "Mary"}
 }
+
 @user.route('/')
 def user_list():
     return render_template(
@@ -15,14 +16,19 @@ def user_list():
         users=USERS,
     )
 
-@user.route('/<int:pk>')
+@user.route("/<int:pk>")
 def get_user(pk: int):
-    try:
-        user_name = USERS[pk]
-    except KeyError:
-        raise NotFound(f'User id {pk} not found')
+    if pk in USERS:
+        user_raw = USERS[pk]
+    else:
+        raise NotFound("User id:{}, not found".format(pk))
     return render_template(
-        'users/details.html',
-        user_name = user_name,
+        "users/details.html",
+        user_name=user_raw["name"]
     )
-
+def get_user_name(pk: int):
+    if pk in USERS:
+        user_name = USERS[pk]["name"]
+    else:
+        raise NotFound("User id:{}, not found".format(pk))
+    return user_name
