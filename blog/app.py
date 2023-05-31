@@ -1,18 +1,31 @@
+import os
+
 from flask import Flask, redirect, url_for
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from .models import User, db
-from .extensions import db, login_manager
+from .extensions import db, login_manager, migrate
+from dotenv import load_dotenv
+from .config import DevConfig , ProductConfig
+
+load_dotenv()
+
 
 login_manager = LoginManager()
 
 
 def create_app() -> Flask:
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'Qwerty_123'
-    app.config['SQlALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+    # app.config['SECRET_KEY'] = 'Qwerty_123'
+    # app.config['SQlALCHEMY_TRACK_MODIFICATIONS'] = False
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+
+
+
+    cfg_name = os.getenv("CONFIG_NAME")  or "ProductConfig"
+    app.config.from_object(f"blog.config.{cfg_name}")
     db.init_app(app)
+    migrate.init_app(app, db, compare_type=True)
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
 
