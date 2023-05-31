@@ -14,7 +14,7 @@ def init_db():
 def create_users():
     from blog.models import User
 
-    db.session.add(
-        User(email='name2@email.com', password=generate_password_hash('test123'))
-    )
+    db.session.add(User(name='Ivan',email='ivan@email.com', password=generate_password_hash('test123')))
+    db.session.add(User(name='localadmin', email='locadm@email.com', password=generate_password_hash('test123'), admin= True))
+
     db.session.commit()

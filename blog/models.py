@@ -12,4 +12,4 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(255))
     email = db.Column(db.String(255), unique=True)
     password = db.Column(db.String(255))
-    admin = db.Column(db.Boolean)
+    admin = db.Column(db.Boolean, default = False)
