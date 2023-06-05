@@ -7,6 +7,7 @@ class BaseConfig(object):
     SQLALCHEMY_DATABASE_URI = "sqlite:///db.sqlite"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = "Qwerty_123"
+    WTF_CSRF_ENABLED = True
 
 
 class ProductConfig(BaseConfig):
@@ -18,5 +19,8 @@ class DevConfig(BaseConfig):
 
 class TestingConfig(BaseConfig):
     TESTING = True
+
+
+WTF_CSRF_ENABLED = True
 
 

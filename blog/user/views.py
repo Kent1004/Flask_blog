@@ -1,9 +1,14 @@
-from flask import Blueprint, render_template
-from flask_login import login_required
+from flask import Blueprint, render_template, request, redirect, url_for
+from flask_login import login_required, current_user, login_user
 from werkzeug.exceptions import NotFound
+from werkzeug.security import generate_password_hash
+
+from blog.extensions import db
+
 
 from blog.app import login_manager
 from blog.models import User
+from blog.forms.user import UserRegisterForm
 
 user = Blueprint('user', __name__, url_prefix='/users', static_folder='../static')
 
@@ -16,6 +21,7 @@ user = Blueprint('user', __name__, url_prefix='/users', static_folder='../static
 # }
 
 @user.route('/')
+@login_required
 def user_list():
     from blog.models import User
     users = User.query.all()
@@ -56,3 +62,27 @@ def get_user_name(pk: int):
         return user.email
     else:
         return 'Anonimus'
+
+
+@user.route('/register',methods = ['GET','POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('user.profile', pk=current_user.id))
+    form = UserRegisterForm(request.form)
+    errors = []
+    if request.method == 'POST' and form.validate_on_submit():
+        print(User.query.filter_by(email=form.email.data))
+        if User.query.filter_by(email=form.email.data).count():
+            form.email.errors.append('email not uniq')
+            return render_template('users/register.html',form=form)
+        _user = User(
+            email = form.email.data,
+            first_name = form.first_name.data,
+            last_name=form.last_name.data,
+            password = generate_password_hash(form.password.data)
+        )
+
+        db.session.add(_user)
+        db.session.commit()
+        login_user(_user)
+    return render_template('users/register.html', form = form , errors= errors)

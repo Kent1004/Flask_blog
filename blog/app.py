@@ -4,7 +4,7 @@ from flask import Flask, redirect, url_for
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from .models import User, db
-from .extensions import db, login_manager, migrate
+from .extensions import db, login_manager, migrate,csrf
 from dotenv import load_dotenv
 from .config import DevConfig , ProductConfig
 
@@ -26,7 +26,8 @@ def create_app() -> Flask:
     app.config.from_object(f"blog.config.{cfg_name}")
     db.init_app(app)
     migrate.init_app(app, db, compare_type=True)
-    login_manager.login_view = 'auth.login'
+    csrf.init_app(app)
+    login_manager.login_view = 'auth.authen'
     login_manager.init_app(app)
 
     @login_manager.user_loader

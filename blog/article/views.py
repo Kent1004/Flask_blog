@@ -3,6 +3,7 @@ from flask_login import login_required
 from werkzeug.exceptions import NotFound
 
 from blog.user.views import get_user_name
+from blog.forms.auth import UserAuthForm
 
 article = Blueprint('article', __name__, url_prefix='/article', static_folder='../static')
 

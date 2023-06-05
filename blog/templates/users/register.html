@@ -2,17 +2,17 @@
 {% from "macro/formhelpers.html" import render_field %}
 
 {% block title %}
-    User login
+    User register
 {% endblock %}
 {% block body %}
-                {% if error %}
+                {% if errors in errors%}
                     <div class="alert alert-danger" role="alert">
                         {{ error }}
                     </div>
                 {% endif %}
 <form method="POST">
-    {{ form.csrf_token }}
-    {% for field in ['email', 'password'] %}
+    {{form.csrf_token }}
+    {% for field in ['first_name', 'last_name', 'email', 'password','confirm_password'] %}
         {{ render_field(form[field]) }}
     {% endfor %}
 
