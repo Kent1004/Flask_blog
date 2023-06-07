@@ -3,6 +3,8 @@ import os
 from flask import Flask, redirect, url_for
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+
+from . import author
 from .models import User, db
 from .extensions import db, login_manager, migrate,csrf
 from dotenv import load_dotenv
@@ -47,11 +49,14 @@ def register_blueprints(app: Flask):
     from blog.index.views import index
     from blog.user.views import user
     from blog.report.views import report
-    from blog.article.views import article
+    from blog.articles.views import article
+    from blog.author.views import author
+
     app.register_blueprint(user)
     app.register_blueprint(report)
     app.register_blueprint(index)
     app.register_blueprint(article)
     app.register_blueprint(auth)
+    app.register_blueprint(author)
 
 # def register_commands(add: Flask):

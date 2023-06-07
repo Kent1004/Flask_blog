@@ -47,7 +47,7 @@ def user_list():
 @login_required
 def profile(pk: int):
     from blog.models import User
-    user = User.query.filter_by(id=pk).one_or_none()
+    user: User = User.query.filter_by(id=pk).one_or_none()
     if not user:
         raise NotFound(f'No such user {pk}')
     return render_template(
@@ -71,7 +71,6 @@ def register():
     form = UserRegisterForm(request.form)
     errors = []
     if request.method == 'POST' and form.validate_on_submit():
-        print(User.query.filter_by(email=form.email.data))
         if User.query.filter_by(email=form.email.data).count():
             form.email.errors.append('email not uniq')
             return render_template('users/register.html',form=form)
