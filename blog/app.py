@@ -10,6 +10,7 @@ from .extensions import db, login_manager, migrate,csrf
 from dotenv import load_dotenv
 from .config import DevConfig , ProductConfig
 
+
 load_dotenv()
 
 
@@ -59,4 +60,5 @@ def register_blueprints(app: Flask):
     app.register_blueprint(auth)
     app.register_blueprint(author)
 
-# def register_commands(add: Flask):
+# def register_commands(app: Flask):
+#     app.cli.add_command(commands.create_init_tags)

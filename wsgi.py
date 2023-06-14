@@ -18,3 +18,12 @@ def create_users():
     db.session.add(User(name='localadmin', email='locadm@email.com', password=generate_password_hash('test123'), admin= True))
 
     db.session.commit()
+
+
+@app.cli.command()
+def create_init_tags():
+    from blog.models import Tag
+    tags = ('flask','django','gb', 'sqlite')
+    for item in tags:
+        db.session.add(Tag(name=item))
+    db.session.commit()
