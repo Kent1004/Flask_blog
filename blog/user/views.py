@@ -5,7 +5,6 @@ from werkzeug.security import generate_password_hash
 
 from blog.extensions import db
 
-
 from blog.app import login_manager
 from blog.models import User
 from blog.forms.user import UserRegisterForm
@@ -64,7 +63,7 @@ def get_user_name(pk: int):
         return 'Anonimus'
 
 
-@user.route('/register',methods = ['GET','POST'])
+@user.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('user.profile', pk=current_user.id))
@@ -73,15 +72,15 @@ def register():
     if request.method == 'POST' and form.validate_on_submit():
         if User.query.filter_by(email=form.email.data).count():
             form.email.errors.append('email not uniq')
-            return render_template('users/register.html',form=form)
+            return render_template('users/register.html', form=form)
         _user = User(
-            email = form.email.data,
-            first_name = form.first_name.data,
+            email=form.email.data,
+            first_name=form.first_name.data,
             last_name=form.last_name.data,
-            password = generate_password_hash(form.password.data)
+            password=generate_password_hash(form.password.data)
         )
 
         db.session.add(_user)
         db.session.commit()
         login_user(_user)
-    return render_template('users/register.html', form = form , errors= errors)
+    return render_template('users/register.html', form=form, errors=errors)

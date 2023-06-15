@@ -14,8 +14,9 @@ app = create_app()
 def create_users():
     from blog.models import User
 
-    db.session.add(User(name='Ivan',email='ivan@email.com', password=generate_password_hash('test123')))
-    db.session.add(User(name='localadmin', email='locadm@email.com', password=generate_password_hash('test123'), admin= True))
+    db.session.add(User(name='Ivan', email='ivan@email.com', password=generate_password_hash('test123')))
+    db.session.add(
+        User(name='localadmin', email='locadm@email.com', password=generate_password_hash('test123'), admin=True))
 
     db.session.commit()
 
@@ -23,7 +24,7 @@ def create_users():
 @app.cli.command()
 def create_init_tags():
     from blog.models import Tag
-    tags = ('flask','django','gb', 'sqlite')
+    tags = ('flask', 'django', 'gb', 'sqlite')
     for item in tags:
         db.session.add(Tag(name=item))
     db.session.commit()

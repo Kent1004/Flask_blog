@@ -6,7 +6,6 @@ from blog.app import login_manager
 from blog.forms.auth import UserAuthForm
 from blog.models import User
 
-
 auth = Blueprint('auth', __name__, static_folder='../static')
 
 
@@ -39,12 +38,13 @@ def login():
         email = form.email.data
         password = form.password.data
         user = User.query.filter_by(email=email).first()
-        if not user or not check_password_hash(user.password,password):
+        if not user or not check_password_hash(user.password, password):
             return render_template('auth/login.html', form=form, error='No valid credentials')
         else:
             login_user(user)
             return redirect(url_for('user.profile', pk=user.id))
     return render_template('auth/login.html', form=form)
+
 
 @auth.route('/logout')
 @login_required

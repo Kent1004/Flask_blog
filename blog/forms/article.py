@@ -3,9 +3,7 @@ from wtforms import StringField, validators, PasswordField, SubmitField, TextAre
 
 
 class CreateArticleForm(FlaskForm):
-    title = StringField('Title',[validators.DataRequired()])
-    text = TextAreaField('Text',[validators.DataRequired()])
+    title = StringField('Title', [validators.DataRequired()])
+    text = TextAreaField('Text', [validators.DataRequired()])
     tags = SelectMultipleField('Tags', coerce=int)
     submit = SubmitField('Create')
-
-

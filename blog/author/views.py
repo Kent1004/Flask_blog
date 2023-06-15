@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template
 
-
 author = Blueprint('author', __name__, url_prefix='/author', static_folder='../static')
 
 

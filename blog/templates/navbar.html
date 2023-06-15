@@ -17,11 +17,12 @@
                     <a class="nav-link" href="{{ url_for('article.article_list') }}">Articles</a>
                 </li>
                 {% if  current_user.is_authenticated %}
-                      <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('article.create_article_form') }}">Create article </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout ({{ current_user.last_name }} {{ current_user.first_name }}) </a>
+                        <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout
+                            ({{ current_user.last_name }} {{ current_user.first_name }}) </a>
                     </li>
                 {% endif %}
 

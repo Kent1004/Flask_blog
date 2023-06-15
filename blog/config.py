@@ -12,9 +12,10 @@ class BaseConfig(object):
 
 class ProductConfig(BaseConfig):
     Debug = False
+
+
 class DevConfig(BaseConfig):
     DEBUG = True
-
 
 
 class TestingConfig(BaseConfig):
@@ -22,5 +23,4 @@ class TestingConfig(BaseConfig):
 
 
 WTF_CSRF_ENABLED = True
-
-
+FLASK_ADMIN_SWATCH = 'cosmo'

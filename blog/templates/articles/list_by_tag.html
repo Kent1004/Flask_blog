@@ -5,14 +5,16 @@
 {% endblock %}
 {% block body %}
     <div>
-            <h1>TAG: {{ tag.name }}</h1>
-        </div>
+        <h1>TAG: {{ tag.name }}</h1>
+    </div>
     <div>
 
-{% for article in articles %}
-    <ul><li>
-        <a href="{{ url_for('article.article_detail', article_id=article.id) }}">
-        {{ article.title }}
- </a> </li> </ul> {% endfor %}
+        {% for article in articles %}
+            <ul>
+                <li>
+                    <a href="{{ url_for('article.article_detail', article_id=article.id) }}">
+                        {{ article.title }}
+                    </a></li>
+            </ul> {% endfor %}
     </div>
 {% endblock %}

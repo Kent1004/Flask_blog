@@ -8,7 +8,7 @@ services:
       SQLALCHEMY_DATABASE_URI: postgresql://user:password@pg:5432/blog
       CONFIG_NAME: DevConfig
     volumes:
-    - ./blog:/app/blog
+      - ./blog:/app/blog
     ports:
       - 8080:5000
     depends_on:
