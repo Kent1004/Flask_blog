@@ -23,7 +23,7 @@ class AuthorSchema(Schema):
 
     articles = Relationship(
         nested='ArticleSchema',
-        attribute='article',
+        attribute='articles',
         related_url='article_detail',
         related_url_kwargs={'id': '<id>'},
         schema='ArticleSchema',

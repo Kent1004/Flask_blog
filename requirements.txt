@@ -37,3 +37,4 @@ flask-combo-jsonapi==1.1.0
 ComboJSONAPI==1.1.2
 apispec==4.7.1
 markupsafe==2.0.1
+

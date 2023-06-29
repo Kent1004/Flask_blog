@@ -1,5 +1,7 @@
 import os
 
+from combojsonapi.event import EventPlugin
+from combojsonapi.permission import PermissionPlugin
 from flask import Flask, redirect, url_for
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -32,6 +34,8 @@ def create_app() -> Flask:
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
     api.plugins = [
+        EventPlugin(),
+        PermissionPlugin(),
         ApiSpecPlugin(
             app=app,
             tags={
